@@ -18,14 +18,32 @@ function FileVersions() {
   console.log(data);
 
   useEffect(() => {
-    // fetch data
-    const dataFetch = async () => {
-      const data = await (
-        await fetch("http://localhost:8001/api/file_versions")
-      ).json();
+  const token = localStorage.getItem('authToken'); // get the token stored after login
 
-      // set state when the data received
-      setData(data);
+    if (!token) {
+      console.error("No auth token found");
+      return;
+    }
+
+    const dataFetch = async () => {
+      try {
+        const response = await fetch("http://localhost:8001/api/file_versions/", {
+          method: "GET",
+          headers: {
+            "Authorization": `Token ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch data. Are you authenticated?");
+        }
+
+        const data = await response.json();
+        setData(data);
+      } catch (error) {
+        console.error("Error fetching file versions:", error.message);
+      }
     };
 
     dataFetch();

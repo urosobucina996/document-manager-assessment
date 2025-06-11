@@ -13,6 +13,8 @@ urlpatterns = [
     # DRF auth token
     path("api-auth/", include("rest_framework.urls")),
     path("auth-token/", obtain_auth_token),
+    # Admin
+    path('admin/', admin.site.urls),
 ]
 
 if settings.DEBUG:
