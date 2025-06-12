@@ -27,6 +27,6 @@ class UserAdmin(BaseUserAdmin):
 
 @admin.register(FileVersion)
 class FileVersionAdmin(admin.ModelAdmin):
-    list_display = ("file_name", "version_number", "user")
+    list_display = ("file_name", "version_number", "user", "uploaded_at")
     search_fields = ("file_name", "user__email")
     list_filter = ("user",)    

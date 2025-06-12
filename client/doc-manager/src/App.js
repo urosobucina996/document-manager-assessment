@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Login from "./Login";
 import FileVersions from "./FileVersions";
+import UploadFileVersion from "./UploadFileVersion";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -21,6 +22,7 @@ function App() {
         {isLoggedIn ? (
           <>
             <button onClick={handleLogout}>Logout</button>
+            <UploadFileVersion />
             <FileVersions />
           </>
         ) : (

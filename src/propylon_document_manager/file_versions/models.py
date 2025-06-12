@@ -59,11 +59,17 @@ class User(AbstractUser):
 
 class FileVersion(models.Model):
     file_name = models.fields.CharField(max_length=512)
-    version_number = models.fields.IntegerField()
+    version_number = models.fields.IntegerField(default=1)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="file_versions",
+        null=True,
+        blank=True,
+    )
+    file = models.FileField(
+        upload_to='uploads/',
         null=True,
         blank=True,
     )
