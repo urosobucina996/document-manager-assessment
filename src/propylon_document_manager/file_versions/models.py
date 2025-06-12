@@ -73,3 +73,6 @@ class FileVersion(models.Model):
         null=True,
         blank=True,
     )
+
+    class Meta:
+        unique_together = ['file_name', 'version_number']

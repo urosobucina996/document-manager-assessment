@@ -47,9 +47,8 @@ class FileVersionViewSet(
             folder = 'default'
 
         filename = uploaded_file.name
-        path = os.path.join(folder, filename)  # e.g. 'user_uploads/123/image.png'
-        
-        # Save the file manually to desired path
+        path = os.path.join(folder, filename)
+
         saved_path = default_storage.save(path, ContentFile(uploaded_file.read()))
 
         serializer.save(
