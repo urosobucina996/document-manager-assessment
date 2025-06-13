@@ -15,6 +15,7 @@ urlpatterns = [
     path("auth-token/", obtain_auth_token),
     # Admin
     path('admin/', admin.site.urls),
+    path('accounts/', include('allauth.urls')),  
 ]
 
 if settings.DEBUG:

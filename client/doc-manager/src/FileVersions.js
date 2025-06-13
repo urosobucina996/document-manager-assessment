@@ -21,6 +21,30 @@ function FileVersions() {
   const [data, setData] = useState([]);
   const [selectedVersion, setSelectedVersion] = useState(null);
 
+  const handleViewFile = async (id) => {
+      const token = localStorage.getItem("authToken");
+      console.log(id);
+
+      try {
+        const response = await fetch(`http://localhost:8001/api/file_versions/${id}/download/`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Token ${token}`
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        console.log('clicked button!');
+        const blob = await response.blob();
+        const fileURL = URL.createObjectURL(blob);
+        window.open(fileURL, '_blank');
+      } catch (error) {
+        console.error('Error fetching the file:', error);
+      }
+    };
+
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     if (!token) return;
@@ -60,13 +84,7 @@ function FileVersions() {
           <h2>Selected File</h2>
           <p><strong>Name:</strong> {selectedVersion.file_name}</p>
           <p><strong>Version:</strong> {selectedVersion.version_number}</p>
-          <a
-            href={`${selectedVersion.file}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View File
-          </a>
+          <button onClick={() => handleViewFile(selectedVersion.id)}>View File</button>
           <br />
           <button onClick={() => setSelectedVersion(null)}>Back to List</button>
         </div>

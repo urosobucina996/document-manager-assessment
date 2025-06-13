@@ -4,10 +4,12 @@ Base settings to build other settings files upon.
 from pathlib import Path
 
 import environ
+import os
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # propylon_document_manager/
 APPS_DIR = BASE_DIR
+PRIVATE_MEDIA_ROOT = os.path.join(BASE_DIR, 'private_media')
 env = environ.Env()
 
 READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)

@@ -75,4 +75,4 @@ class FileVersion(models.Model):
     )
 
     class Meta:
-        unique_together = ['file_name', 'version_number']
+        unique_together = ['file_name', 'version_number', 'user']
